@@ -1,9 +1,17 @@
-- name: Docekr Image Build
+- name: Docekr Image Build and Push
   hosts: ansible_host
   gather_facts: false
 
   tasks:
     - command: docker image build -t java-hello-world java-hello-world/
+    - command: docker login -u 39world -p "{{ lookup('env', 'PASS' }}"
+    - command: docker push 39world/java-hello
+    - command: docker logout
+
+- name: Docker Run
+  hosts: docker_host
+  gather_facts: false
+  tasks:
     - command: docker container rm -f java-hello-world
       ignore_errors: yes
     - command: docker container run -d -p 8080:8080 --name java-hello-world java-hello-world
