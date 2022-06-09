@@ -1,5 +1,5 @@
 FROM tomcat:9-jre11-openjdk
 
-COPY webapp.war /home/ubuntu/java-hello-world/
+COPY webapp.war /usr/local/tomcat/webapps
 
 EXPOSE 8080
